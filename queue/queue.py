@@ -13,43 +13,44 @@ return elements in First In First Out order.
 Stretch: What if you could only use instances of your Stack class to implement the Queue?
          What would that look like? How many Stacks would you need? Try it!
 """
-class Element:
-    def __init__(self,value,next_element=None):
-        self.value = value
-        self.next_element = next_element
+import sys
+sys.path.insert(1,'../singly_linked_list')
+from singly_linked_list import LinkedList
+# class Queue:
+#     def __init__(self):
+#         self.size = 0
+#         self.storage = LinkedList()
+    
+#     def __len__(self):
+#         return self.size
+
+#     def enqueue(self, value):
+#         self.storage.add_to_tail(value)
+#         self.size += 1
+#         return value
+#     def dequeue(self):        
+#         if self.size >= 1:
+#             val = self.storage.remove_head()
+#             self.size -= 1
+#             return val
+#         else:
+#             return None
 class Queue:
     def __init__(self):
         self.size = 0
-        self.head: Element = None
-        self.tail: Element = None
+        self.storage = []
     
     def __len__(self):
         return self.size
 
     def enqueue(self, value):
-        if self.tail is None:
-            new_el = Element(value,None)
-            self.head = new_el
-            self.tail = new_el
-        else:
-            new_tail = Element(value,None)
-            old_tail = self.tail
+        self.storage.insert(0,value)
         self.size += 1
+        
     def dequeue(self):        
-        if not self.head:
+        if self.size >= 1:
+           item = self.storage.pop(-1)
+           self.size -= 1
+           return item
+        else:
             return None
-        if self.head.next_element is None:
-            self.size -= 1
-            head_val = self.head.value
-            self.head = None
-            self.tail = None
-            return head_val
-        self.size -= 1
-        head_val = self.head.value
-        self.head = self.head.next_element
-        return head_val
-n = Queue()
-n.enqueue(3)
-n.enqueue(4)
-
-print(n.tail.value)
