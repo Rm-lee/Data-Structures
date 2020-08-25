@@ -103,7 +103,8 @@ class DoublyLinkedList:
             current_tail = self.tail
             self.tail = current_tail.prev
             self.tail.next = None
-            return self.tail.value
+            self.length -= 1
+            return current_tail.value
             
             
     """
@@ -112,7 +113,7 @@ class DoublyLinkedList:
     """
     def move_to_front(self, node):
         self.delete(node)
-        self.add_to_head(node)
+        self.add_to_head(node.value)
 
         
     """
@@ -121,7 +122,7 @@ class DoublyLinkedList:
     """
     def move_to_end(self, node):
         self.delete(node)
-        self.add_to_tail(node)
+        self.add_to_tail(node.value)
 
     """
     Deletes the input node from the List, preserving the 
